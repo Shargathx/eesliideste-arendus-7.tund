@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+#title {
+    padding-top: 10px;
+}
+
+h1 {
+    margin-top: 40px;
+    font-size: 3em;
+}
+
+section {
+    margin: 60px auto;
+    max-width: 600px;
+    background: rgba(139, 138, 138, 0.4);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+canvas {
+    background: white;
+    border-radius: 10px;
+}
+
+#three-container {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+
+footer {
+    margin-top: 50px;
+    font-size: 14px;
+    opacity: 0.8;
+    padding: 15px;
+}

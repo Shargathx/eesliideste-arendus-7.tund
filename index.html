@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Libraries Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <link rel="stylesheet" href="styling.css">
+
+</head>
+
+<body>
+
+    <h1 id="title">Erinevate Librarite Tunnitöö Demo</h1>
+
+    <section>
+        <h2>Chart.js graafik</h2>
+        <canvas id="myChart"></canvas>
+    </section>
+
+    <section>
+        <h2>Three.js 3D objekt</h2>
+        <div id="three-container"></div>
+    </section>
+
+    <footer>
+        Martin Saareväli
+    </footer>
+
+    <script>
+        VANTA.WAVES({
+            el: "body",
+            mouseControls: false,
+            color: 0x1e90ff,
+            shininess: 60,
+            waveHeight: 10,
+            waveSpeed: 1.2,
+            color: 0x090909,
+            zoom: 0.2
+        });
+
+        gsap.from("#title", {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+        });
+
+        gsap.from("section", {
+            opacity: 0,
+            y: 50,
+            stagger: 0.3,
+            duration: 1
+        });
+
+        new Chart(document.getElementById("myChart"), {
+            type: "bar",
+            data: {
+                labels: ["E", "T", "K", "N", "R"],
+                datasets: [{
+                    label: "Õppimisaeg (h)",
+                    data: [2, 4, 3, 5, 6],
+                    backgroundColor: "pink",
+                    hoverBackgroundColor: "hotpink"
+                },
+                {
+                    label: "Puhkepausid (h)",
+                    data: [0.2, 1, 0.4, 0.5, 0.5],
+                    backgroundColor: "green",
+                    hoverBackgroundColor: "limegreen"
+                }]
+            }
+        });
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(300, 300);
+        document.getElementById("three-container").appendChild(renderer.domElement);    
+
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
+
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        const light = new THREE.PointLight(0xffffff, 1);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+
+        camera.position.z = 5;
+        let zoomLevel = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            zoomLevel += 0.01;
+            camera.position.z = 3.5 + Math.sin(zoomLevel) * 2;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+
+</body>
+
+</html>
